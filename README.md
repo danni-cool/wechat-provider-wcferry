@@ -4,7 +4,7 @@
 
 ## 免责声明
 
-本开源作品（以下简称“作品”）由 [danni-cool](https://github.com/danni-cool)（以下简称“作者”）开发并维护, 作者在此声明，使用本作品的任何人（以下简称“使用者”）应当遵守以下条款和条件：
+本开源作品（以下简称"作品"）由 [danni-cool](https://github.com/danni-cool)（以下简称"作者"）开发并维护, 作者在此声明，使用本作品的任何人（以下简称"使用者"）应当遵守以下条款和条件：
 
 **1. 法律风险**：使用者在使用和编译本作品时，应当自行承担可能的法律风险。作者不对使用者因使用本作品而引发的任何法律纠纷、诉讼或处罚承担任何责任。
 
@@ -38,6 +38,7 @@ docker run -itd \
     -p 13389:3389 \
     -p 10086:10086 \
     -p 10087:10087 \
+    -p 16080:6080 \
     --ulimit nofile=8192 \
     --name DESKTOP \
     dannicool/wechatbot-provider-windows:wc-3935
@@ -45,6 +46,7 @@ docker run -itd \
 
 - rpc 推消息端口是 10086
 - rpc 收消息端口是 10087
+- noVNC 访问端口是 16080
 
 目录挂载：
 
@@ -55,6 +57,12 @@ docker run -itd \
 ## 2. 使用 rdp 连接
 
 1. 推荐 [Microsoft remote desktop](https://apps.microsoft.com/detail/9wzdncrfj3ps?hl=en-US&gl=US)，端口是 13389，默认`root` 密码为`123`
+
+## 2.1 使用 noVNC 连接（新增）
+
+1. 打开浏览器，访问 `http://YOUR_SERVER_IP:16080/vnc.html`
+2. 无需输入密码，直接点击 "Connect" 按钮
+3. 连接成功后，即可通过浏览器访问远程桌面
 
 ## 3. 点击 startService 等待唤起微信登陆
 

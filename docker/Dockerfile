@@ -1,11 +1,10 @@
-
 FROM fedora:39
 
 WORKDIR /root
 
 RUN dnf update -y \
         && dnf groupinstall -y "LXDE" \
-        && dnf install -y wine wget xrdp git xorg-x11-server-Xvfb xauth \
+        && dnf install -y wine wget xrdp git xorg-x11-server-Xvfb xauth tigervnc-server novnc websockify python3 python3-numpy net-tools \
         && dnf clean all
 
 RUN wget https://github.com/danni-cool/wechatbot-provider-windows/releases/download/v3.9.11.25-wc39.3.3/python-3.12.4-amd64.exe -O python-installer.exe && \
@@ -35,9 +34,14 @@ RUN     xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' wine ins
 
 RUN chmod +x start.sh
 
+# 设置VNC密码
+RUN mkdir -p ~/.vnc && echo "123456" | vncpasswd -f > ~/.vnc/passwd && chmod 600 ~/.vnc/passwd
+
 EXPOSE 3389
 EXPOSE 10086
 EXPOSE 10087
+EXPOSE 5901
+EXPOSE 6080
 
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["bash"]
